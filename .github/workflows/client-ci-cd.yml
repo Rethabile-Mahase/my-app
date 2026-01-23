@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  USER_NAME: "rethabile-mahase"
+  USER_NAME: 'rethabile-mahase'
 
 jobs:
   build-and-push:
