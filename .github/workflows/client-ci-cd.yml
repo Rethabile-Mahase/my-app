@@ -6,16 +6,15 @@ on:
     branches:
       - main
 
-permissions:
-  contents: read
-  packages: write
-
 env:
   USER_NAME: 'rethabile-mahase'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest # The environment to run your job
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       # Step 1: Pull your repo into the runner
