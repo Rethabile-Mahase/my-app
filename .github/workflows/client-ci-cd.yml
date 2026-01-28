@@ -1,22 +1,27 @@
 name: Build and Push Docker Image
 
+# Trigger this workflow on pushes to the main branch
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: read
-  packages: write
+env:
+  USER_NAME: 'rethabile-mahase'
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # The environment to run your job
+    permissions:
+      contents: read
+      packages: write
 
     steps:
+      # Step 1: Pull your repo into the runner
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Log in to GitHub Container Registry
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -24,15 +29,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Compute image owner
-        id: owner
-        run: |
-          echo "value=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
-
+      # Step 3: Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ steps.owner.outputs.value }}/my-app:latest .
+          docker build -t ghcr.io/${{ env.USER_NAME }}/my-app:latest .
 
+      # Step 4: Push Docker image
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ steps.owner.outputs.value }}/my-app:latest
+          docker push ghcr.io/${{ env.USER_NAME }}/my-app:latest
