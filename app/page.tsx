@@ -8,6 +8,9 @@ export default function Home() {
         <h1 className="text-6xl font-bold text-zinc-900 dark:text-zinc-100">
           Welcome to Rethabile&apos;s World
         </h1>
+        <h2 className="mt-3 text-2xl text-zinc-700 dark:text-zinc-300">
+          Get used to this
+        </h2>
       </main>
     </div>
   );
